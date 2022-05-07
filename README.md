@@ -69,33 +69,95 @@ USUARIO
 | URL | Description |
 | ------------- | ------------- |
 | /profile  | Profile   |
-| /profile/reservas  | Available games   |
+| /profile/bookings  | Available games   |
 
 LISTA JUEGOS
 
 | URL | Description |
 | ------------- | ------------- |
 | /boardgames  | Available games   |
-| /boardgames/detalles  | Game details   |
+| /boardgames/details  | Game details   |
 
 LISTA PARTIDAS
 
 | URL | Description |
 | ------------- | ------------- |
 | /matches  | Matches games   |
-| /matches/detalles  | Match details   |
+| /matches/details  | Match details   |
 
 LISTA EVENTOS
 
 | URL | Description |
 | ------------- | ------------- |
 | /event  | Matches games   |
-| /event/detalles  | Match details   |
+| /event/details  | Match details   |
 
 LISTA ALQUILER
 
 | URL | Description |
 | ------------- | ------------- |
 | /bookings  | Booking games   |
-| /bookings/detalles  | Match details   |
+| /bookings/details  | Match details   |
 
+
+
+LISTA DE COMPONENTES
+├── src
+│    └── Components
+│       └── NavBar
+│       └── FiltersBar
+│       └── LikeGamesButton
+│       └── DislikeGamesButton
+│       └── Games
+│       │    │── GamesList
+│       │    │── CardGame
+│       │    │── CommentsGame
+│       │    │── CreateGameForm
+│       │    └── EditGameForm
+│       └── RentGames
+│       │    │── RentGamesList
+│       │    │── CardRentGame
+│       │    │── CreateRentGameForm
+│       │    └── EditRentGameForm
+│       └── Matches
+│       │    │── MatchesList
+│       │    │── CardMatch
+│       │    │── CreateMatchForm
+│       │    └── EditMatchForm
+│       └── Events
+│       │    │── EventsList
+│       │    │── CardEvent
+│       │    │── CreateEventForm
+│       │    └── EditEventForm
+│       └── User
+│       │    │── CardUser
+│       │    │── UserList
+│       │    │── FavGames
+│       │    │── MyGames
+│       │    │── MyRentGames
+│       │    └── EditUserForm
+│       └── Auth
+│       │    │── SignUpForm
+│       │    └── LoginForm
+│       └── Footer
+│       └── Spinner
+
+
+PAGES
+  └── HomePages
+  └── GamePages 
+  └── GameDetailsPages 
+  └── EditGamePages
+  └── RentGamesPages
+  └── RentGamesDetailsPages 
+  └── EditRentGamesPages
+  └── MatchesPages
+  └── MatchesDetailsPages
+  └── EditMatchesPages
+  └── EventPages
+  └── EventDetailsPages
+  └── EditEventPages
+  └── UserProfilePages
+  └── EditUserProfilePages
+  └── SignUpPages
+  └── LoginPages
