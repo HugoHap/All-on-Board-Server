@@ -64,19 +64,35 @@ GAME BOOKING /api/bookings
 
 | /  | Home   |
 
+AUTH
+
+| URL | Description |
+| ------------- | ------------- |
+| /signup  | Sign Up   |
+| /login  | Login   |
+
 USUARIO
 
 | URL | Description |
 | ------------- | ------------- |
 | /profile  | Profile   |
-| /profile/bookings  | Available games   |
+| /profile/bookings  | Bookings   |
 
 LISTA JUEGOS
 
 | URL | Description |
 | ------------- | ------------- |
-| /boardgames  | Available games   |
+| /boardgames  | Games   |
 | /boardgames/details  | Game details   |
+| /boardgames/edit  | Game edit   |
+
+LISTA JUEGOS PARA PRESTAR
+
+| URL | Description |
+| ------------- | ------------- |
+| /rentgames  | Rent games   |
+| /rentgames/details  | Rent game details   |
+| /rentgames/edit  | Rent game edit   |
 
 LISTA PARTIDAS
 
@@ -84,20 +100,22 @@ LISTA PARTIDAS
 | ------------- | ------------- |
 | /matches  | Matches games   |
 | /matches/details  | Match details   |
+| /matches/edit  | Edit match    |
 
 LISTA EVENTOS
 
 | URL | Description |
 | ------------- | ------------- |
-| /event  | Matches games   |
-| /event/details  | Match details   |
+| /event  | Events games   |
+| /event/details  | Event details   |
+| /event/edit  | Edit event   |
 
 LISTA ALQUILER
 
 | URL | Description |
 | ------------- | ------------- |
 | /bookings  | Booking games   |
-| /bookings/details  | Match details   |
+| /bookings/details  | Booking games details   |
 
 
 
@@ -144,20 +162,20 @@ LISTA DE COMPONENTES
 
 
 PAGES
-  └── HomePages
-  └── GamePages 
-  └── GameDetailsPages 
-  └── EditGamePages
-  └── RentGamesPages
-  └── RentGamesDetailsPages 
-  └── EditRentGamesPages
-  └── MatchesPages
-  └── MatchesDetailsPages
-  └── EditMatchesPages
-  └── EventPages
-  └── EventDetailsPages
-  └── EditEventPages
-  └── UserProfilePages
-  └── EditUserProfilePages
-  └── SignUpPages
-  └── LoginPages
+  └── HomePage
+  └── GamesPage 
+  └── GameDetailsPage
+  └── EditGamePage
+  └── RentGamesPage
+  └── RentGamesDetailsPage 
+  └── EditRentGamesPage
+  └── MatchesPage
+  └── MatchesDetailsPage
+  └── EditMatchesPage
+  └── EventPage
+  └── EventDetailsPage
+  └── EditEventPage
+  └── UserProfilePage
+  └── EditUserProfilePage
+  └── SignUpPage
+  └── LoginPage
