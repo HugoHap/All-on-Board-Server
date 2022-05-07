@@ -1,16 +1,41 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema(
   {
+    email: {
+      type: String,
+      unique: true,
+      required: [true, "Indica el correo electrónico"],
+    },
     username: {
       type: String,
-      // unique: true -> Ideally, should be unique, but its up to you
+      required: [true, "Indica el nombre de usuario"],
     },
-    password: String,
+    password: {
+      type: String,
+      required: true,
+    },
+    favouriteGames: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Boardgame'
+    }],
+    role: {
+      type: String,
+      enum: ['USER', 'ADMIN'],
+      default: 'USER'
+    },
+    avatar: {
+      type: String,
+      default: "https://i.stack.imgur.com/l60Hf.png"
+    },
+    matches: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Match'
+    }],
+
   },
   {
-    // this second object adds extra properties: `createdAt` and `updatedAt`
+
     timestamps: true,
   }
 );
