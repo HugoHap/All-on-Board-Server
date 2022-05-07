@@ -1,10 +1,20 @@
 const { Schema, model } = require('mongoose')
+
 const matchSchema = new Schema(
     {
-        organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+        organizer: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
         startTime: Date,
-        game: { type: Schema.Types.ObjectId, ref: 'BoardGame' },
-        players: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+        game: {
+            type: Schema.Types.ObjectId,
+            ref: 'BoardGame'
+        },
+        players: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }],
         location: {
             type: {
                 type: String

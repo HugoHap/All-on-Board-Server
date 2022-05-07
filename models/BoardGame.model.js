@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const boardGameSchema = new Schema(
     {
-        title: String,
+        name: String,
         description: String,
         gameImg: {
             type: String,
