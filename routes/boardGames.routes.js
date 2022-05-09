@@ -3,7 +3,7 @@ const router = require("express").Router()
 const BoardGame = require("./../models/BoardGame.model")
 
 
-router.get('/',  (req, res, next) => {
+router.get('/', (req, res, next) => {
 
     BoardGame
         .find()
@@ -15,15 +15,15 @@ router.get('/',  (req, res, next) => {
 
 
 router.post('/create', (req, res) => {
-    const { name, description, gameImg, minPlayers, maxPLayers } = req.body
+    const { name, description, kind, gameImg, min, max } = req.body
 
     const players = {
-        minPlayers,
-        maxPLayers
+        min,
+        max
     }
 
     BoardGame
-        .create({ name, description, gameImg, players })
+        .create({ name, description, kind, gameImg, players })
         .then((boardgame) => {
             res.status(201).json({ boardgame })
         })
@@ -32,129 +32,77 @@ router.post('/create', (req, res) => {
 })
 
 
-// // Club details 
+router.post('/:id/edit', (req, res) => {
 
-// router.get('/:clubId', (req, res, next) => {
+    const { id } = req.params
 
-//     const { clubId } = req.params
-//     const { _id } = req.session.currentUser
-//     const isAdmin = req.session.currentUser.role === 'ADMIN'
-
-//     const promises = [
-//         Club.findById(clubId),
-//         Match.find({ 'club': { $eq: clubId } }),
-//         User.find({ 'favouriteClubs': { $eq: clubId } }).populate('favouriteClubs')
-//     ]
-
-//     Promise
-//         .all(promises)
-//         .then(([clubInfo, matchInfo, followers]) => {
-
-//             let isFollowing = false
-
-//             followers.forEach(eachFollower => {
-//                 eachFollower.favouriteClubs.forEach(eachClub => {
-//                     if (eachClub._id == clubId) {
-//                         isFollowing = true
-//                     }
-//                 })
-//             })
-//             res.render('clubs/club-details', { clubInfo, matchInfo, followers, isAdmin, isFollowing })
-//         })
-//         .catch(err => console.log(err))
-// })
+    const { name, description, gameImg, min, max } = req.body
 
 
-// // Edit club
+    BoardGame
+        .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
+        .then(() => {
+            res.status(200).json("Updated")
 
-// router.get('/:id/editar', (req, res, next) => {
+        })
+        .catch(err => res.status(500).json(err))
 
-//     const { id } = req.params
+})
 
-//     Club
-//         .findById(id)
-//         .then(club => {
-//             res.render('clubs/club-edit', club)
-//         })
-//         .catch(err => console.log(err))
-// })
+router.put('/:id/like', (req, res, next) => {
 
-// router.post('/:id/editar', (req, res) => {
+    const { id } = req.params
 
-//     const { id } = req.params
-//     const { name, street, city, zip, longitude, latitude, image, numberOfFields, web, phone, weekdaysFrom, weekdaysTo, weekendsFrom, weekendsTo, holidaysFrom, holidaysTo } = req.body
+    BoardGame
+        .findByIdAndUpdate(_id, { $inc: { likes: 1 } })
+        .then(() => {
+            res.status(200).json("Incremenet like")
+        })
+        .catch(err => res.status(500).json(err))
 
-//     const schedule = {
-//         weekdays: {
-//             from: weekdaysFrom,
-//             to: weekdaysTo,
-//         },
+})
 
-//         weekends: {
-//             from: weekendsFrom,
-//             to: weekendsTo,
-//         },
+router.put('/:id/dislike', (req, res, next) => {
 
-//         holidays: {
-//             from: holidaysFrom,
-//             to: holidaysTo,
-//         }
-//     }
+    const { id } = req.params
 
-//     Club
-//         .findByIdAndUpdate(id, { name, street, city, zip, longitude, latitude, image, numberOfFields, web, phone, schedule }, { new: true })
-//         .then(club => {
-//             res.redirect('/clubs')
-//         })
-//         .catch(err => console.log(err))
-// })
+    BoardGame
+        .findByIdAndUpdate(_id, { $inc: { dislike: 1 } })
+        .then(() => {
+            res.status(200).json("Increment Dislike")
+        })
+        .catch(err => res.status(500).json(err))
+
+})
 
 
-// // Add to favouriteClubs
+router.post('/:id/eliminate-favourite', (req, res, next) => {
 
-// router.post('/:id/favourite', (req, res, next) => {
+    const { id } = req.params
+    const { _id } = req.payload
 
-//     const { id } = req.params
-//     const { _id } = req.session.currentUser
+    BoardGame
+        .findByIdAndUpdate(_id, { $pull: { favouriteGames: id } })
+        .then(() => {
+            res.status(200).json("Removed")
+        })
+        .catch(err => res.status(500).json(err))
 
-//     User
-//         .findByIdAndUpdate(_id, { $addToSet: { favouriteClubs: id } })
-//         .then(() => {
-//             res.redirect(`/clubs/${id}`)
-//         })
-//         .catch(err => console.log(err))
-// })
-
-
-// // Eliminate from favourite
-
-// router.post('/:id/eliminate-favourite', (req, res, next) => {
-
-//     const { id } = req.params
-//     const { _id } = req.session.currentUser
-
-//     User
-//         .findByIdAndUpdate(_id, { $pull: { favouriteClubs: id } })
-//         .then(() => {
-//             res.redirect(`/clubs/${id}`)
-//         })
-//         .catch(err => console.log(err))
-// })
+})
 
 
-// // Delete club 
+router.delete('/:id/delete', (req, res) => {
 
-// router.post('/:id/eliminar', (req, res) => {
+    const { id } = req.params
 
-//     const { id } = req.params
+    BoardGame
+        .findByIdAndDelete(id)
+        .then(() => {
+            res.status(200).json("Deleted")
 
-//     Club
-//         .findByIdAndDelete(id)
-//         .then(() => {
-//             res.redirect('/clubs')
-//         })
-//         .catch(err => console.log(err))
-// })
+        })
+        .catch(err => console.log(err))
+})
 
 
 module.exports = router

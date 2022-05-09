@@ -29,7 +29,7 @@ const matchSchema = new Schema(
         players: [{
             type: Schema.Types.ObjectId,
             ref: 'User'
-        }], 
+        }],
     },
     {
         timestamps: true

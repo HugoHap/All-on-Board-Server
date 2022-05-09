@@ -8,6 +8,7 @@ module.exports = app => {
     
     const authRoutes = require('./auth.routes')
     app.use('./api/auth', authRoutes)
+    
     // HOME PAGE
     // const indexRoutes = require('./index.routes')
     // app.use('/', indexRoutes)

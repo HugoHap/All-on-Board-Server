@@ -14,8 +14,9 @@ const boardGameSchema = new Schema(
             type: String,
             required: true
         },
-        type: {
+        kind: {
             type: String,
+            required: true,
             enum: ["ORIGINAL", "RENT"],
         },
         owner: {
@@ -45,5 +46,5 @@ const boardGameSchema = new Schema(
 );
 
 const BoardGame = model("BoardGame", boardGameSchema);
-
+BoardGame.syncIndexes()
 module.exports = BoardGame;
