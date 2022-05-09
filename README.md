@@ -167,6 +167,7 @@ PAGES
   └── GameDetailsPage
   └── EditGamePage
   └── RentGamesPage
+  └── CreateGamesPage
   └── RentGamesDetailsPage 
   └── EditRentGamesPage
   └── MatchesPage
@@ -177,5 +178,6 @@ PAGES
   └── EditEventPage
   └── UserProfilePage
   └── EditUserProfilePage
+  └── UserProfileBookingsPage
   └── SignUpPage
   └── LoginPage

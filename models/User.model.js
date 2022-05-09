@@ -32,6 +32,14 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Match'
     }],
+    rentedGames: [{
+      type: Schema.Types.ObjectId,
+      ref: 'RentGame'
+    }],
+    events: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Event'
+    }],
   },
   {
     timestamps: true,
