@@ -2,23 +2,23 @@ const { Schema, model } = require("mongoose");
 
 const bookingSchema = new Schema(
     {
-        RentGame: {
+        game: {
             type: Schema.Types.ObjectId,
-            ref: 'RentGame'
+            ref: 'RentGame',
+            require: true
         },
         startDate: {
-            type: Date
+            type: Date,
+            require: true
         },
         endDate: {
-            type: Date
+            type: Date,
+            require: true
         },
-        // owner: { //EL QUE LO PRESTA (??) 
-        //     type: Schema.Types.ObjectId,
-        //     ref: 'User'
-        // },
-        renter: { //EL QUE LO ALQUILA (??)
+        renter: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            require: true
         },
     },
     {
