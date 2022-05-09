@@ -6,21 +6,30 @@ const matchSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
-        startTime: Date,
-        game: {
-            type: Schema.Types.ObjectId,
-            ref: 'BoardGame'
+        startTime: {
+            type: Date,
+            required: true,
         },
-        players: [{
+        boardGame: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
-        }],
+            ref: 'BoardGame',
+            require: true
+        },
         location: {
             type: {
                 type: String
             },
-            coordinates: [Number]
-        }
+            coordinates: [Number],
+            require: true
+        },
+        type: {
+            type: String,
+            enum: ["MATCH", "EVENT"],
+        },
+        players: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }], 
     },
     {
         timestamps: true
