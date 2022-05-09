@@ -2,9 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const bookingSchema = new Schema(
     {
-        game: {
+        boardGame: {
             type: Schema.Types.ObjectId,
-            ref: 'RentGame',
+            ref: 'BoardGame',
             require: true
         },
         startDate: {
