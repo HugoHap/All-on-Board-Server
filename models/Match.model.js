@@ -20,7 +20,6 @@ const matchSchema = new Schema(
                 type: String
             },
             coordinates: [Number],
-            require: true
         },
         type: {
             type: String,
