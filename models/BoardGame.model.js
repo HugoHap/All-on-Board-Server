@@ -19,6 +19,8 @@ const boardGameSchema = new Schema(
                 default: null
             },
         },
+    },
+    {
         timestamps: true,
     }
 );
