@@ -6,11 +6,11 @@ const User = require('../models/User.model');
 const BoardGame = require('../models/BoardGame.model');
 
 //CREAR PARTIDA
-router.get('/create-match', (req, res) => {
+router.get('/create', (req, res) => {
     res.render('match/create-matchs')
 })
 
-router.post('/create-matchs', (req, res) => {
+router.post('/create', (req, res) => {
     const { organizer, game, players, location } = req.body
 
     Event
@@ -20,4 +20,3 @@ router.post('/create-matchs', (req, res) => {
         })
         .catch(err => console.log(err))
 })
-

@@ -2,23 +2,44 @@ const { Schema, model } = require("mongoose");
 
 const boardGameSchema = new Schema(
     {
-        name: String,
-        description: String,
+        name: {
+            type: String,
+            required: true
+        },
+        description: {
+            type: String,
+            required: true
+        },
         gameImg: {
             type: String,
+            required: true
         },
-        likes: Number,
-        dislike: Number,
+        type: {
+            type: String,
+            enum: ["ORIGINAL", "RENT"],
+        },
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        },
         players: {
-            minPlayers: {
+            min: {
                 type: Number,
-                default: null
             },
-            maxPlayers: {
-                type: Number,
-                default: null
+            max: {
+                type: Number
             },
         },
+        likes: {
+            type: Number,
+            default: 0
+        },
+        dislike: {
+            type: Number,
+            default: 0
+        }
+    },
+    {
         timestamps: true,
     }
 );

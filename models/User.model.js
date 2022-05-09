@@ -13,11 +13,11 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Indica la contraseña"],
     },
     favouriteGames: [{
       type: Schema.Types.ObjectId,
-      ref: 'Boardgame'
+      ref: 'BoardGame'
     }],
     role: {
       type: String,
@@ -28,18 +28,6 @@ const userSchema = new Schema(
       type: String,
       default: "https://i.stack.imgur.com/l60Hf.png"
     },
-    matches: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Match'
-    }],
-    rentedGames: [{
-      type: Schema.Types.ObjectId,
-      ref: 'RentGame'
-    }],
-    events: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    }],
   },
   {
     timestamps: true,
