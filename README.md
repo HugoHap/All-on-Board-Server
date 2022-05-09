@@ -117,8 +117,7 @@ LISTA ALQUILER
 | /bookings  | Booking games   |
 | /bookings/details  | Booking games details   |
 
-
-
+```
 LISTA DE COMPONENTES
 ├── src
 │    └── Components
@@ -181,3 +180,4 @@ PAGES
   └── UserProfileBookingsPage
   └── SignUpPage
   └── LoginPage
+```
