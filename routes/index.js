@@ -5,9 +5,13 @@ module.exports = app => {
 
     const boardGamesRoutes = require("./boardGames.routes.js");
     app.use("/api/boardgames", boardGamesRoutes);
-    
+
     const authRoutes = require('./auth.routes')
-    app.use('./api/auth', authRoutes)
+    app.use('/api/auth', authRoutes)
+
+    const userRoutes = require('./user.routes')
+    app.use('/api/user', userRoutes)
+
     // HOME PAGE
     // const indexRoutes = require('./index.routes')
     // app.use('/', indexRoutes)
