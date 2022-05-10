@@ -8,7 +8,8 @@ const { isAuthenticated } = require("../middlewares/jwt.middleware")
 const router = express.Router()
 const saltRounds = 10
 
-router.post('/signup', (req, res, next) => {
+// SIGNUP 
+router.post('/signup', (req, res) => {
 
     const { email, password, username, avatar } = req.body
 
@@ -44,11 +45,8 @@ router.post('/signup', (req, res, next) => {
         })
 })
 
-
-
-
-
-router.post('/login', (req, res, next) => {
+// LOGIN 
+router.post('/login', (req, res) => {
 
     const { email, password } = req.body
 
@@ -77,7 +75,6 @@ router.post('/login', (req, res, next) => {
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
-
                 res.status(200).json({ authToken });
             }
             else {
@@ -90,8 +87,8 @@ router.post('/login', (req, res, next) => {
         })
 })
 
-
-router.get('/verify', isAuthenticated, (req, res, next) => {
+// VERIFY 
+router.get('/verify', isAuthenticated, (req, res) => {
     res.status(200).json(req.payload)
 })
 

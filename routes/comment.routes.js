@@ -8,27 +8,23 @@ const { isAuthenticated } = require('../middlewares/jwt.middleware')
 router.post('/:id/create', isAuthenticated, (req, res) => {
 
     const { id } = req.params
-    const { content, user } = req.body
-    // const { _id } = req.payload
+    const { content, owner } = req.body
+    //const { _id } = req.payload
 
     Comment
-        .create({ user, boardGame: id, content, date: new Date() })
-        .then(response => {
-            res.status(201).json(response)
-        })
+        .create({ owner, boardGame: id, content, date: new Date() })
+        .then(response => res.status(201).json(response))
         .catch(err => res.status(500).json(err))
 })
 
 // DELETE COMMENT
-router.post('/:id/delete', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
 
     const { id } = req.params
 
     Comment
         .findByIdAndDelete(id)
-        .then((response) => {
-            res.status(201).json(response)
-        })
+        .then((response) => res.status(201).json(response))
         .catch(err => res.status(500).json(err))
 });
 

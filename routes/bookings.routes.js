@@ -1,10 +1,9 @@
 const router = require('express').Router()
-
 const { Router } = require('express')
 const Booking = require('../models/Booking.model')
 
 // CREATE BOOKING 
-router.post("/create/:game_id", (req, res) => {
+router.post("/create", (req, res) => {
 
     const { game_id } = req.params
     const { _id } = req.payload
@@ -13,9 +12,7 @@ router.post("/create/:game_id", (req, res) => {
 
     Booking
         .create({ user: _id, boardGame: game_id, startDate, endDate })
-        .then((booking) => { //RESPONSE O BOOKING
-            res.status(201).json(booking)
-        })
+        .then((booking) => res.status(201).json(booking))
         .catch(err => res.status(500).json(err))
 })
 
@@ -49,9 +46,7 @@ router.delete("/:booking_id/delete", (req, res) => {
 
     Booking
         .findByIdAndDelete(booking_id)
-        .then((response) => {
-            res.status(201).json(response)
-        })
+        .then((response) => res.status(201).json(response))
         .catch(err => res.status(500).json(err))
 })
 
