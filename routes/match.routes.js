@@ -8,9 +8,7 @@ router.get('/', (req, res) => {
 
     Match
         .find()
-        .then((response) => {
-            res.json(response)
-        })
+        .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
@@ -19,9 +17,7 @@ router.post('/create', isAuthenticated, (req, res) => {
 
     Match
         .create({ organizer, description, startTime, boardGame, location, kind })
-        .then((match) => {
-            res.status(201).json({ match })
-        })
+        .then((match) => res.status(201).json({ match }))
         .catch(err => res.status(500).json(err))
 })
 
@@ -41,7 +37,6 @@ router.get("/:match_id", (req, res) => {
 router.put("/:match_id/edit", (req, res) => {
 
     const { match_id } = req.params
-
     const { organizer, description, startTime, boardGame, location, kind } = req.body
 
     Match
