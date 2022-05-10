@@ -4,17 +4,17 @@ const { Router } = require('express')
 const Booking = require('../models/Booking.model')
 
 // CREATE BOOKING 
-router.post("/create", (req, res) => {
+router.post("/create/:game_id", (req, res) => {
 
-    const { id } = req.params
+    const { game_id } = req.params
     const { _id } = req.payload
 
     const { boardGame, startDate, endDate } = req.body
 
     Booking
-        .create({ user: _id, boardGame: id, startDate, endDate })
+        .create({ user: _id, boardGame: game_id, startDate, endDate })
         .then((booking) => { //RESPONSE O BOOKING
-            res.status(201).json({ booking })
+            res.status(201).json(booking)
         })
         .catch(err => res.status(500).json(err))
 })
@@ -35,7 +35,6 @@ router.put("/:booking_id/edit", (req, res) => {
 
     const { booking_id } = req.params
     const { boardGame, startDate, endDate } = req.body
-    const { _id } = req.payload
 
     Booking
         .findByIdAndUpdate(booking_id, { boardGame, startDate, endDate })

@@ -76,7 +76,7 @@ router.put('/:id/dislike', (req, res, next) => {
 })
 
 
-router.post('/:id/eliminate-favourite', (req, res, next) => {
+router.post('/:id/delete-favourite', (req, res, next) => {
 
     const { id } = req.params
     const { _id } = req.payload

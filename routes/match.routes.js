@@ -14,11 +14,10 @@ router.get('/', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
-    const { organizer, startTime, boardGame, location, type } = req.body
-
+    const { organizer, description, startTime, boardGame, location, kind } = req.body
 
     Match
-        .create({ organizer, startTime, boardGame, location, type })
+        .create({ organizer, description, startTime, boardGame, location, kind })
         .then((match) => {
             res.status(201).json({ match })
         })
@@ -42,11 +41,10 @@ router.put("/:match_id/edit", (req, res) => {
 
     const { match_id } = req.params
 
-    const { organizer, startTime, boardGame, location, type } = req.body
-
+    const { organizer, description, startTime, boardGame, location, kind } = req.body
 
     Match
-        .findByIdAndUpdate(match_id, { organizer, startTime, boardGame, location, type})
+        .findByIdAndUpdate(match_id, { organizer, description, startTime, boardGame, location, kind })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -58,6 +56,41 @@ router.delete("/:match_id/delete", (req, res) => {
 
     Match
         .findByIdAndDelete(match_id)
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// JOIN MATCH 
+router.post('/:id/join', (req, res) => {
+
+    const { id } = req.params
+    const { _id } = req.session.currentUser
+
+
+    Match
+        .findById(id)
+        .then(matches => {
+
+            if (matches.players.length <= boardGame.players.max) {
+
+                Match
+                    .findByIdAndUpdate(id, { $addToSet: { players: _id } })
+                    .then(response => res.json(response))
+                    .catch(err => res.status(500).json(err))
+            } else {
+                res.status(500).json(err)
+            }
+        })
+})
+
+// UNJOIN MATCH 
+router.post('/:id/unjoin', (req, res) => {
+
+    const { id } = req.params
+    const { _id } = req.session.currentUser
+
+    Match
+        .findByIdAndUpdate(id, { $pull: { players: _id } })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
