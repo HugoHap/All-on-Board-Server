@@ -5,20 +5,20 @@ const bookingSchema = new Schema(
         boardGame: {
             type: Schema.Types.ObjectId,
             ref: 'BoardGame',
-            require: true
+            required: true
         },
         startDate: {
             type: Date,
-            require: true
+            required: true
         },
         endDate: {
             type: Date,
-            require: true
+            required: true
         },
         renter: {
             type: Schema.Types.ObjectId,
             ref: 'User',
-            require: true
+            required: true
         },
     },
     {

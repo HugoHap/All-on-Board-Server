@@ -2,20 +2,24 @@ const router = require("express").Router()
 
 const BoardGame = require("./../models/BoardGame.model")
 
+const { isAuthenticated} = require("./../middlewares/jwt.middleware")
 
 router.get('/', (req, res, next) => {
 
     BoardGame
         .find()
-        .then((response) => {
-            res.json(response)
+        .then((response) => {res.json(response)
         })
         .catch(err => res.status(500).json(err))
 })
 
 
-router.post('/create', (req, res) => {
+router.post('/create', isAuthenticated, (req, res) => {
     const { name, description, kind, gameImg, min, max } = req.body
+
+    const owner = req.payload._id
+
+    console.log(owner)
 
     const players = {
         min,
@@ -23,7 +27,7 @@ router.post('/create', (req, res) => {
     }
 
     BoardGame
-        .create({ name, description, kind, gameImg, players })
+        .create({ name, description, kind, gameImg, players, owner })
         .then((boardgame) => {
             res.status(201).json({ boardgame })
         })
@@ -31,8 +35,18 @@ router.post('/create', (req, res) => {
 
 })
 
+router.get("/:id", (req, res) => {
 
-router.post('/:id/edit', (req, res) => {
+    const { id } = req.params
+
+    BoardGame
+        .findById(id)
+        .populate('owner')
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+router.put('/:id/edit', (req, res) => {
 
     const { id } = req.params
 
@@ -43,7 +57,6 @@ router.post('/:id/edit', (req, res) => {
         .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
         .then(() => {
             res.status(200).json("Updated")
-
         })
         .catch(err => res.status(500).json(err))
 
@@ -76,21 +89,6 @@ router.put('/:id/dislike', (req, res, next) => {
 })
 
 
-router.post('/:id/delete-favourite', (req, res, next) => {
-
-    const { id } = req.params
-    const { _id } = req.payload
-
-    BoardGame
-        .findByIdAndUpdate(_id, { $pull: { favouriteGames: id } })
-        .then(() => {
-            res.status(200).json("Removed")
-        })
-        .catch(err => res.status(500).json(err))
-
-})
-
-
 router.delete('/:id/delete', (req, res) => {
 
     const { id } = req.params
@@ -99,7 +97,6 @@ router.delete('/:id/delete', (req, res) => {
         .findByIdAndDelete(id)
         .then(() => {
             res.status(200).json("Deleted")
-
         })
         .catch(err => console.log(err))
 })
