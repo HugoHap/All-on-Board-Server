@@ -1,62 +1,62 @@
 AUTH /api/auth/
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| POST  | /signup  | Signup |
-| POST  | /login  | Login |
-| POST  | /logout | Logout  |
+| POST  | /signup  | Signup |    |  |
+| POST  | /login  | Login | Yes  | All |
+| POST  | /logout | Logout  | Yes  | All |
 
 USERS /api/users
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Users  |
-| GET  | /id  | User profile  |
-| PUT  | /:id/edit  | Edit user profile |
-| DELETE  | /:id/delete  | Delete user profile  |
+| GET  | /  | Users  | Yes  | Admin |
+| GET  | /id  | User profile  | Yes  | User |
+| PUT  | /:id/edit  | Edit user profile | Yes  | User |
+| DELETE  | /:id/delete  | Delete user profile  | Yes  | All |
 
 BOARDGAMES /api/boardgames
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Games   |
-| POST  | /create  | Create boardgames   |
-| PUT | /:id/edit  | Edit boardgames  |
-| DELETE  | /:id/delete  | Delete boardgames  |
-| GET  | /:id/like ? | Like boardgames  |
-| POST | /:id/dislike ?  | Dislike boardgames |
+| GET  | /  | Games   |   |  |
+| POST  | /create  | Create boardgames   | Yes  | All |
+| PUT | /:id/edit  | Edit boardgames  | Yes  | All |
+| DELETE  | /:id/delete  | Delete boardgames  | Yes  | All |
+| GET  | /:id/like ? | Like boardgames  | Yes  | All |
+| POST | /:id/dislike ?  | Dislike boardgames | Yes  | All |
 
 MATCH /api/match
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Matches list   |
-| POST  | /create  | Create matches   |
-| PUT | /:id/edit  | Edit matches  |
-| DELETE  | /:id/delete  | Delete matches  |
-| GET | /:id/join  | Join matches |
-| GET | /:id/unjoin  | Unjoin matches |
+| GET  | /  | Matches list   |   |  |
+| POST  | /create  | Create matches   | Yes  | All |
+| PUT | /:id/edit  | Edit matches  | Yes  | All |
+| DELETE  | /:id/delete  | Delete matches  | Yes  | All |
+| GET | /:id/join  | Join matches | Yes  | All |
+| GET | /:id/unjoin  | Unjoin matches | Yes  | All |
 
 EVENT /api/event
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Event   |
-| POST  | /create  | Create event   |
-| PUT | /:id/edit  | Edit event  |
-| DELETE  | /:id/delete  | Delete event  |
-| GET | /:id/join  | Join event |
-| GET | /:id/unjoin  | Unjoin event |
+| GET  | /  | Events   |   |  |
+| POST  | /create  | Create event   | Yes  | Admin |
+| PUT | /:id/edit  | Edit event  | Yes  | Admin |
+| DELETE  | /:id/delete  | Delete event  | Yes  | Admin |
+| GET | /:id/join  | Join event | Yes  | All |
+| GET | /:id/unjoin  | Unjoin event | Yes  | All |
 
 
 GAME BOOKING /api/bookings
 
-|  Method  | URL | Description |
+|  Method  | URL | Description | Protected | Roles |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Boardgames to rent list   |
-| POST  | /create  | Create booking   |
-| PUT | /:id/edit  | Edit booking  |
-| DELETE  | /:id/delete  | Delete booking  |
+| GET  | /  | Boardgames to rent list   |   |  |
+| POST  | /create  | Create booking   | Yes  | User |
+| PUT | /:id/edit  | Edit booking  | Yes  | User |
+| DELETE  | /:id/delete  | Delete booking  | Yes  | User |
 
 
 ------------- CLIENTE --------------------

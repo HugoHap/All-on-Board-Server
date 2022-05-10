@@ -16,7 +16,7 @@ const commentSchema = new Schema(
         boardGame: {
             type: Schema.Types.ObjectId,
             ref: 'BoardGame',
-            require: true
+            required: true
         }
     },
     {

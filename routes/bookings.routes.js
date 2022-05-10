@@ -1,5 +1,4 @@
 const router = require('express').Router()
-
 const { Router } = require('express')
 const Booking = require('../models/Booking.model')
 
@@ -13,7 +12,7 @@ router.post("/create/:game_id", (req, res) => {
 
     Booking
         .create({ user: _id, boardGame: game_id, startDate, endDate })
-        .then((booking) => { //RESPONSE O BOOKING
+        .then((booking) => {
             res.status(201).json(booking)
         })
         .catch(err => res.status(500).json(err))
