@@ -18,24 +18,30 @@ router.get('/', isAuthenticated, (req, res) => {
 
 router.get('/:_id', isAuthenticated, (req, res) => {
 
-    const { _id } = req.payload
+    const { _id } = req.params
 
     const promises = [User.findById(_id).populate('favouriteGames'),
-    Match.find({ 'players': { _id } }).populate('startTime boardGame')]
+    Match.find({ 'players': { _id } }).populate('boardGame')]
 
-    User
-        .findById(_id)
-        .populate('favouriteGames')
+    Promise
+        .all(promises)
+        .then((response) => {
+            res.json(response)
+        })
+        .catch(err => res.status(500).json(err))
+
 })
 
-router.put('/:id/edit', isAuthenticated, (req, res) => {
+router.put('/:_id/edit', isAuthenticated, (req, res) => {
 
-    const { _id } = req.payload
+    const { _id } = req.params
     const { email, username, avatar } = req.body
 
     User
         .findByIdAndUpdate(_id, { email, username, avatar })
-        .then(response => res.json(response))
+        .then(() => {
+            res.status(200).json("Updated")
+        })
         .catch(err => res.status(500).json(err))
 })
 
@@ -45,7 +51,9 @@ router.delete('/:_id/delete', (req, res) => {
 
     User
         .findByIdAndDelete(_id)
-        .then(response => res.json(response))
+        .then(() => {
+            res.status(200).json("Deleted")
+        })
         .catch(err => res.status(500).json(err))
 
 })

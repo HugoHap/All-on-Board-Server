@@ -14,15 +14,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
-    const { organizer, startTime, boardGame, location, type, minPlayers, maxPLayers } = req.body
+    const { organizer, startTime, boardGame, location, type } = req.body
 
-    const players = {
-        minPlayers,
-        maxPLayers
-    }
 
     Match
-        .create({ organizer, startTime, boardGame, location, type, players })
+        .create({ organizer, startTime, boardGame, location, type })
         .then((match) => {
             res.status(201).json({ match })
         })
@@ -46,15 +42,11 @@ router.put("/:match_id/edit", (req, res) => {
 
     const { match_id } = req.params
 
-    const { organizer, startTime, boardGame, location, type, minPlayers, maxPLayers } = req.body
+    const { organizer, startTime, boardGame, location, type } = req.body
 
-    const players = {
-        minPlayers,
-        maxPLayers
-    }
 
     Match
-        .findByIdAndUpdate(match_id, { organizer, startTime, boardGame, location, type, players })
+        .findByIdAndUpdate(match_id, { organizer, startTime, boardGame, location, type})
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
