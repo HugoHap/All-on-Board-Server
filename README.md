@@ -2,10 +2,8 @@ AUTH /api/auth/
 
 |  Method  | URL | Description |
 | ------------- | ------------- | ------------- |
-| GET  | /signup  | Signup  |
-| POST  | /signup  | Signup POST  |
-| GET  | /login  | Register Form POST  |
-| POST  | /login  | Login Render  |
+| POST  | /signup  | Signup |
+| POST  | /login  | Login |
 | POST  | /logout | Logout  |
 
 USERS /api/users
@@ -13,30 +11,31 @@ USERS /api/users
 |  Method  | URL | Description |
 | ------------- | ------------- | ------------- |
 | GET  | /  | Users  |
-| PUT  | /:id/edit  | User Profile Page  |
-| DELETE  | /:id/delete  | User Profile Edit Page  |
+| GET  | /id  | User profile  |
+| PUT  | /:id/edit  | Edit user profile |
+| DELETE  | /:id/delete  | Delete user profile  |
 
 BOARDGAMES /api/boardgames
 
 |  Method  | URL | Description |
 | ------------- | ------------- | ------------- |
 | GET  | /  | Games   |
-| POST  | /create  | Create Games   |
-| PUT | /:id/edit  | Delete profile POST  |
-| DELETE  | /:id/delete  | Matches List  |
-| GET  | /:id/like ? | Create Match Form  |
-| POST | /:id/dislike ?  | Create Match Form POST  |
+| POST  | /create  | Create boardgames   |
+| PUT | /:id/edit  | Edit boardgames  |
+| DELETE  | /:id/delete  | Delete boardgames  |
+| GET  | /:id/like ? | Like boardgames  |
+| POST | /:id/dislike ?  | Dislike boardgames |
 
 MATCH /api/match
 
 |  Method  | URL | Description |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Matches   |
-| POST  | /create  | Create Games   |
-| PUT | /:id/edit  | Delete profile POST  |
-| DELETE  | /:id/delete  | Matches List  |
-| GET | /:id/join  | Join Match |
-| GET | /:id/unjoin  | Unjoin Match |
+| GET  | /  | Matches list   |
+| POST  | /create  | Create matches   |
+| PUT | /:id/edit  | Edit matches  |
+| DELETE  | /:id/delete  | Delete matches  |
+| GET | /:id/join  | Join matches |
+| GET | /:id/unjoin  | Unjoin matches |
 
 EVENT /api/event
 
@@ -44,9 +43,9 @@ EVENT /api/event
 | ------------- | ------------- | ------------- |
 | GET  | /  | Event   |
 | POST  | /create  | Create event   |
-| PUT | /:id/edit  | Delete profile POST  |
-| DELETE  | /:id/delete  | Event List  |
-| GET | /:id/join  | Event Match |
+| PUT | /:id/edit  | Edit event  |
+| DELETE  | /:id/delete  | Delete event  |
+| GET | /:id/join  | Join event |
 | GET | /:id/unjoin  | Unjoin event |
 
 
@@ -54,10 +53,10 @@ GAME BOOKING /api/bookings
 
 |  Method  | URL | Description |
 | ------------- | ------------- | ------------- |
-| GET  | /  | Available games   |
+| GET  | /  | Boardgames to rent list   |
 | POST  | /create  | Create booking   |
-| PUT | /:id/edit  | Edit profile POST  |
-| DELETE  | /:id/delete  | Event List  |
+| PUT | /:id/edit  | Edit booking  |
+| DELETE  | /:id/delete  | Delete booking  |
 
 
 ------------- CLIENTE --------------------
@@ -84,13 +83,13 @@ LISTA JUEGOS
 | ------------- | ------------- |
 | /boardgames  | Games   |
 | /boardgames/details  | Game details   |
-| /boardgames/edit  | Game edit   |
+| /boardgames/edit  | Edit game   |
 
 LISTA JUEGOS PARA PRESTAR
 
 | URL | Description |
 | ------------- | ------------- |
-| /rentgames  | Rent games   |
+| /rentgames  | Rent games list   |
 | /rentgames/details  | Rent game details   |
 | /rentgames/edit  | Rent game edit   |
 
@@ -98,15 +97,15 @@ LISTA PARTIDAS
 
 | URL | Description |
 | ------------- | ------------- |
-| /matches  | Matches games   |
-| /matches/details  | Match details   |
-| /matches/edit  | Edit match    |
+| /match  | Matches list   |
+| /match/details  | Match details   |
+| /match/edit  | Edit match   |
 
 LISTA EVENTOS
 
 | URL | Description |
 | ------------- | ------------- |
-| /event  | Events games   |
+| /event  | Events list   |
 | /event/details  | Event details   |
 | /event/edit  | Edit event   |
 

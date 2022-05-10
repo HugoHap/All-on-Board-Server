@@ -10,6 +10,12 @@ const boardGameSchema = new Schema(
             type: String,
             required: true
         },
+        playingTime: {
+            type: String,
+        },
+        age: {
+            type: String,
+        },
         gameImg: {
             type: String,
             required: true

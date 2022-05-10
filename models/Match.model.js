@@ -6,6 +6,10 @@ const matchSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'User'
         },
+        description: {
+            type: String,
+            required: true,
+        },
         startTime: {
             type: Date,
             required: true,
@@ -21,7 +25,7 @@ const matchSchema = new Schema(
             },
             coordinates: [Number],
         },
-        type: {
+        kind: {
             type: String,
             enum: ["MATCH", "EVENT"],
         },
