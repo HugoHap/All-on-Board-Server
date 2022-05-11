@@ -161,22 +161,22 @@ LISTA DE COMPONENTES
 
 PAGES
   └── HomePage
-  └── GamesPage 
-  └── GameDetailsPage
+
+  └── GamesPage  - HUGO
+  └── GameDetailsPage - HUGO
   └── EditGamePage
-  └── RentGamesPage
   └── CreateGamesPage
   └── RentGamesDetailsPage 
   └── EditRentGamesPage
-  └── MatchesPage
-  └── MatchesDetailsPage
+
+  └── MatchesPage - ALVARO
+  └── MatchesDetailsPage - ALVARO
   └── EditMatchesPage
-  └── EventPage
-  └── EventDetailsPage
-  └── EditEventPage
-  └── UserProfilePage
+
+  └── UserProfilePage - MARIA
   └── EditUserProfilePage
   └── UserProfileBookingsPage
-  └── SignUpPage
-  └── LoginPage
+
+  └── SignUpPage - MARIA
+  └── LoginPage - MARIA
 ```

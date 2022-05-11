@@ -4,19 +4,21 @@ const BoardGame = require("./../models/BoardGame.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
 
+// BOARDGAME LIST
 router.get('/', (req, res) => {
 
     BoardGame
         .find()
+        // .select('owner name description playingTime age gameImg players likes dislike')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
-
+// CREATE BOARDGAME
 router.post('/create', isAuthenticated, (req, res) => {
     const { name, description, kind, gameImg, min, max } = req.body
 
-    const owner = req.payload._id
+    const { _id: owner } = req.payload
 
     const players = { min, max }
 
@@ -26,7 +28,8 @@ router.post('/create', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 
 })
-// DETAILS BOARDGAME 
+
+// BOARDGAME DETAILS
 router.get("/:id", (req, res) => {
 
     const { id } = req.params
@@ -40,7 +43,8 @@ router.get("/:id", (req, res) => {
         })
         .catch(err => res.status(500).json(err))
 })
-// EDIT BOARDGAME 
+
+// EDIT BOARDGAME
 router.put('/:id/edit', (req, res) => {
 
     const { id } = req.params
@@ -50,7 +54,6 @@ router.put('/:id/edit', (req, res) => {
         .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
         .then(() => res.status(200).json("Updated"))
         .catch(err => res.status(500).json(err))
-
 })
 
 // LIKE BOARDGAME 
@@ -59,7 +62,7 @@ router.post('/:id/like', (req, res, next) => {
     const { id } = req.params
 
     BoardGame
-        .findByIdAndUpdate(_id, { $inc: { likes: 1 } })
+        .findByIdAndUpdate(id, { $inc: { likes: 1 } })
         .then(() => res.status(200).json("Incremenet like"))
         .catch(err => res.status(500).json(err))
 
@@ -71,7 +74,7 @@ router.post('/:id/dislike', (req, res, next) => {
     const { id } = req.params
 
     BoardGame
-        .findByIdAndUpdate(_id, { $inc: { dislike: 1 } })
+        .findByIdAndUpdate(id, { $inc: { dislike: 1 } })
         .then(() => res.status(200).json("Increment Dislike"))
         .catch(err => res.status(500).json(err))
 

@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken')
 const User = require("../models/User.model")
 const { isAuthenticated } = require("../middlewares/jwt.middleware")
 
-
 const router = express.Router()
 const saltRounds = 10
 
@@ -51,7 +50,7 @@ router.post('/login', (req, res) => {
     const { email, password } = req.body
 
     if (email === '' || password === '') {
-        res.status(400).json({ message: "Provide email and password." });
+        res.status(400).json({ message: "Provide email and password." })
         return;
     }
 
@@ -75,10 +74,10 @@ router.post('/login', (req, res) => {
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
-                res.status(200).json({ authToken });
+                res.status(200).json({ authToken })
             }
             else {
-                res.status(401).json({ message: "Unable to authenticate the user" });
+                res.status(401).json({ message: "Unable to authenticate the user" })
             }
         })
         .catch(err => {
