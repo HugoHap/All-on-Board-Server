@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose")
 
 const boardGameSchema = new Schema(
     {
@@ -49,8 +49,6 @@ const boardGameSchema = new Schema(
     {
         timestamps: true,
     }
-);
+)
 
-const BoardGame = model("BoardGame", boardGameSchema);
-BoardGame.syncIndexes()
-module.exports = BoardGame;
+module.exports = model("BoardGame", boardGameSchema)
