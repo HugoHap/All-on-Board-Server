@@ -18,8 +18,6 @@ router.post('/create', isAuthenticated, (req, res) => {
 
     const owner = req.payload._id
 
-    console.log(owner)
-
     const players = { min, max }
 
     BoardGame
@@ -28,23 +26,25 @@ router.post('/create', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 
 })
-
+// DETAILS BOARDGAME 
 router.get("/:id", (req, res) => {
 
     const { id } = req.params
 
+// PROMISE ALL FILTRO ENCONTRANDO PARTIDOS CON MISMO NAME Y TIPO RENT Comment.find({ 'match': { $eq: id } })
     BoardGame
         .findById(id)
         .populate('owner')
-        .then(response => res.json(response))
+        .then(response => {
+            res.json(response)
+        })
         .catch(err => res.status(500).json(err))
 })
-
+// EDIT BOARDGAME 
 router.put('/:id/edit', (req, res) => {
 
     const { id } = req.params
     const { name, description, gameImg, min, max } = req.body
-
 
     BoardGame
         .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
