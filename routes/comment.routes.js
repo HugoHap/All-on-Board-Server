@@ -7,12 +7,12 @@ const { isAuthenticated } = require('../middlewares/jwt.middleware')
 // CREATE COMMENT
 router.post('/:id/create', isAuthenticated, (req, res) => {
 
-    const { id } = req.params
+    const { id: boardGame } = req.params
     const { content, owner } = req.body
     //const { _id } = req.payload
 
     Comment
-        .create({ owner, boardGame: id, content, date: new Date() })
+        .create({ owner, boardGame, content, date: new Date() })
         .then(response => res.status(201).json(response))
         .catch(err => res.status(500).json(err))
 })

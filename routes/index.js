@@ -1,18 +1,16 @@
 module.exports = app => {
 
-   // BOARDGAMES ROUTES
-    const boardGamesRoutes = require("./boardGames.routes.js");
-    app.use("/api/boardgames", boardGamesRoutes);
-
+    // AUTH ROUTES
     const authRoutes = require('./auth.routes')
     app.use('/api/auth', authRoutes)
 
+    // USER ROUTES
     const userRoutes = require('./user.routes')
     app.use('/api/user', userRoutes)
 
-    // HOME PAGE
-    // const indexRoutes = require('./index.routes')
-    // app.use('/', indexRoutes)
+    // BOARDGAMES ROUTES
+    const boardGamesRoutes = require("./boardGames.routes.js");
+    app.use("/api/boardgames", boardGamesRoutes);
 
     // MATCH ROUTES
     const matchRoutes = require('./match.routes')
@@ -22,4 +20,7 @@ module.exports = app => {
     const commentRoutes = require('./comment.routes')
     app.use('/api/comment', commentRoutes)
 
+    // BOOKINGS ROUTES
+    const bookingsRoutes = require('./bookings.routes')
+    app.use('/api/bookings', bookingsRoutes)
 }

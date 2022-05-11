@@ -10,6 +10,7 @@ router.get('/', isAuthenticated, (req, res) => {
 
     User
         .find()
+        .select('email username favouriteGames avatar')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -19,12 +20,25 @@ router.get('/:_id', isAuthenticated, (req, res) => {
 
     const { _id } = req.params
 
-    const promises = [User.findById(_id).populate('favouriteGames'),
-    Match.find({ 'players': { _id } }).populate('boardGame')]
+    const promises = [
+        User.findById(_id).populate('favouriteGames'),
+        Match.find({ 'players': { _id } }).populate('boardGame')
+    ]
 
     Promise
         .all(promises)
         .then((response) => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// GET ALL BOARDGAMES
+router.get("/boardgames", isAuthenticated, (req, res) => {
+
+    const { _id } = req.payload
+
+    BoardGame
+        .find({ owner: _id })
+        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 

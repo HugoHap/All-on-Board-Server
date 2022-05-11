@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     Match
         .find()
         .populate('boardGame')
+        // .select('organizer description startTime boardGame location kind players')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -59,16 +60,14 @@ router.delete("/:id/delete", (req, res) => {
 })
 
 // JOIN MATCH 
-router.post('/:id/join', isAuthenticated, (req, res) => {
+router.post('/:match_id/join', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
 
-
     Match
         .findById(id)
         .then(matches => {
-
             if (matches.players.length <= boardGame.players.max) {
 
                 Match
@@ -82,7 +81,7 @@ router.post('/:id/join', isAuthenticated, (req, res) => {
 })
 
 // UNJOIN MATCH 
-router.post('/:id/unjoin', isAuthenticated,  (req, res) => {
+router.post('/:match_id/unjoin', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
