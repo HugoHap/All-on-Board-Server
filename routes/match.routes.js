@@ -3,15 +3,17 @@ const Match = require("./../models/Match.model")
 
 const { isAuthenticated } = require('../middlewares/jwt.middleware')
 
-// CREATE MATCH
+// MATCHES LIST
 router.get('/', (req, res) => {
 
     Match
         .find()
+        .populate('boardGame')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
+// CREATE MATCH
 router.post('/create', isAuthenticated, (req, res) => {
     const { organizer, description, startTime, boardGame, location, kind } = req.body
 
@@ -22,36 +24,36 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 // MATCH DETAILS
-router.get("/:match_id", (req, res) => {
+router.get("/:id", (req, res) => {
 
-    const { match_id } = req.params
+    const { id } = req.params
 
     Match
-        .findById(match_id)
-        .populate('User', 'BoardGame')
+        .findById(id)
+        .populate('boardGame organizer')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
 // EDIT MATCH
-router.put("/:match_id/edit", (req, res) => {
+router.put("/:id/edit", (req, res) => {
 
-    const { match_id } = req.params
+    const { id } = req.params
     const { organizer, description, startTime, boardGame, location, kind } = req.body
 
     Match
-        .findByIdAndUpdate(match_id, { organizer, description, startTime, boardGame, location, kind })
+        .findByIdAndUpdate(id, { organizer, description, startTime, boardGame, location, kind })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
 // DELETE MATCH
-router.delete("/:match_id/delete", (req, res) => {
+router.delete("/:id/delete", (req, res) => {
 
-    const { match_id } = req.params
+    const { id } = req.params
 
     Match
-        .findByIdAndDelete(match_id)
+        .findByIdAndDelete(id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
