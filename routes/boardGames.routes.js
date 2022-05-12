@@ -3,6 +3,7 @@ const router = require("express").Router()
 const BoardGame = require("./../models/BoardGame.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
+const { response } = require("express")
 
 // BOARDGAME LIST
 router.get('/', (req, res) => {
@@ -34,10 +35,26 @@ router.get("/:id", (req, res) => {
 
     const { id } = req.params
 
-// PROMISE ALL FILTRO ENCONTRANDO PARTIDOS CON MISMO NAME Y TIPO RENT Comment.find({ 'match': { $eq: id } })
     BoardGame
         .findById(id)
         .populate('owner')
+        .then(response => {
+            res.json(response)
+        })
+        .catch(err => res.status(500).json(err))
+})
+
+//BOARDGAME RELATED
+
+router.get("/:id/rent", (req, res) => {
+
+    const { id } = req.params
+
+    BoardGame
+        .findById(id)
+        .then(boardgame => {
+            return BoardGame.find({ 'kind': { $eq: "RENT" }, "name": { $eq: boardgame.name } })
+        })
         .then(response => {
             res.json(response)
         })
