@@ -10,6 +10,7 @@ router.get('/', isAuthenticated, (req, res) => {
 
     User
         .find()
+        .select('-role')
         .select('email username favouriteGames avatar')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
