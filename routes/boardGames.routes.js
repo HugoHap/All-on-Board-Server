@@ -17,14 +17,14 @@ router.get('/', (req, res) => {
 
 // CREATE BOARDGAME
 router.post('/create', isAuthenticated, (req, res) => {
-    const { name, description, kind, gameImg, min, max } = req.body
+    const { name, description, kind, gameImg, min, max, age, playingTime } = req.body
 
     const { _id: owner } = req.payload
 
     const players = { min, max }
 
     BoardGame
-        .create({ name, description, kind, gameImg, players, owner })
+        .create({ name, description, kind, gameImg, players, owner, age, playingTime  })
         .then((boardgame) => res.status(201).json({ boardgame }))
         .catch(err => res.status(500).json(err))
 
