@@ -21,6 +21,7 @@ router.post('/create', isAuthenticated, (req, res) => {
 
     const { _id: owner } = req.payload
 
+    console.log("boardgame payload-----", req.payload);
     const players = { min, max }
 
     BoardGame
@@ -35,11 +36,21 @@ router.get("/:id", (req, res) => {
 
     const { id } = req.params
 
+    const boardGameData = []
+
     BoardGame
         .findById(id)
         .populate('owner')
-        .then(response => {
-            res.json(response)
+        .then(details => {
+            boardGameData.push(details)
+
+            BoardGame
+                .find({ 'kind': { $eq: "RENT" }, "name": { $eq: details.name } })
+                .then(rentGames => {
+                    boardGameData.push(rentGames)
+                })
+        .then(() => res.json(boardGameData))
+
         })
         .catch(err => res.status(500).json(err))
 })

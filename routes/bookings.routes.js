@@ -1,51 +1,52 @@
 const router = require('express').Router()
 const { Router } = require('express')
+const { isAuthenticated } = require('../middlewares/jwt.middleware')
 const Booking = require('../models/Booking.model')
 
 // CREATE BOOKING 
-router.post("/create", (req, res) => {
+router.post("/:id/create", isAuthenticated, (req, res) => {
 
-    const { game_id } = req.params
-    const { _id } = req.payload
-
-    const { boardGame, startDate, endDate } = req.body
+    const { id } = req.params
+    const { _id: renter } = req.payload
+console.log(req.payload);
+    const { startDate, endDate } = req.body
 
     Booking
-        .create({ user: _id, boardGame: game_id, startDate, endDate })
+        .create({ renter, boardGame: id, startDate, endDate })
         .then((booking) => res.status(201).json(booking))
         .catch(err => res.status(500).json(err))
 })
 
 // BOOKING DETAILS
-router.get("/:booking_id", (req, res) => {
+router.get("/:id", (req, res) => {
 
-    const { booking_id } = req.params
+    const { id } = req.params
 
     Booking
-        .findById(booking_id)
+        .findById(id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
 // EDIT BOOKING
-router.put("/:booking_id/edit", (req, res) => {
+router.put("/:id/edit", (req, res) => {
 
-    const { booking_id } = req.params
+    const { id } = req.params
     const { boardGame, startDate, endDate } = req.body
 
     Booking
-        .findByIdAndUpdate(booking_id, { boardGame, startDate, endDate })
+        .findByIdAndUpdate(id, { boardGame, startDate, endDate })
         .then(() => res.json("Saved booking"))
         .catch(err => res.status(500).json(err))
 })
 
 // DELETE BOOKING
-router.delete("/:booking_id/delete", (req, res) => {
+router.delete("/:id/delete", (req, res) => {
 
-    const { booking_id } = req.params
+    const { id } = req.params
 
     Booking
-        .findByIdAndDelete(booking_id)
+        .findByIdAndDelete(id)
         .then((response) => res.status(201).json(response))
         .catch(err => res.status(500).json(err))
 })
