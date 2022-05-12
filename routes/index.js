@@ -23,4 +23,9 @@ module.exports = app => {
     // BOOKINGS ROUTES
     const bookingsRoutes = require('./bookings.routes')
     app.use('/api/bookings', bookingsRoutes)
+
+
+    const uploadRoutes = require('./upload.routes')
+    app.use('/api/upload', uploadRoutes)
+
 }

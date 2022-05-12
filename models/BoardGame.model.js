@@ -18,12 +18,14 @@ const boardGameSchema = new Schema(
         },
         gameImg: {
             type: String,
-            required: true
+            required: true,
+            default: "https://fotografias.lasexta.com/clipping/cmsimages02/2016/09/20/10E8D640-139A-4D77-83F8-CE0A81CD3B2D/98.jpg?crop=1393,784,x0,y14&width=1900&height=1069&optimize=high&format=webply"
         },
         kind: {
             type: String,
             required: true,
             enum: ["ORIGINAL", "RENT"],
+            default: "RENT"
         },
         owner: {
             type: Schema.Types.ObjectId,
