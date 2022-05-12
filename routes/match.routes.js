@@ -16,10 +16,11 @@ router.get('/', (req, res) => {
 
 // CREATE MATCH
 router.post('/create', isAuthenticated, (req, res) => {
-    const { organizer, description, startTime, boardGame, location, kind } = req.body
+    const { description, startTime, boardGame, location, kind } = req.body
+    const { _id } = req.payload
 
     Match
-        .create({ organizer, description, startTime, boardGame, location, kind })
+        .create({ organizer: _id, description, startTime, boardGame, location, kind })
         .then((match) => res.status(201).json({ match }))
         .catch(err => res.status(500).json(err))
 })
@@ -60,7 +61,7 @@ router.delete("/:id/delete", (req, res) => {
 })
 
 // JOIN MATCH 
-router.post('/:match_id/join', isAuthenticated, (req, res) => {
+router.post('/:id/join', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
@@ -81,7 +82,7 @@ router.post('/:match_id/join', isAuthenticated, (req, res) => {
 })
 
 // UNJOIN MATCH 
-router.post('/:match_id/unjoin', isAuthenticated, (req, res) => {
+router.post('/:id/unjoin', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
