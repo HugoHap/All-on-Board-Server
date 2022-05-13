@@ -26,7 +26,7 @@ router.post('/create', isAuthenticated, (req, res) => {
     const players = { min, max }
 
     BoardGame
-        .create({ name, description, kind, gameImg, players, owner, age, playingTime  })
+        .create({ name, description, kind, gameImg, players, owner, age, playingTime })
         .then((boardgame) => res.status(201).json({ boardgame }))
         .catch(err => res.status(500).json(err))
 
@@ -52,7 +52,7 @@ router.get("/:id", (req, res) => {
                 .then(rentGames => {
                     boardGameData.push(rentGames)
                 })
-        .then(() => res.json(boardGameData))
+                .then(() => res.json(boardGameData))
 
         })
         .catch(err => res.status(500).json(err))
@@ -147,4 +147,16 @@ router.delete('/:id/delete', (req, res) => {
         .then(() => res.status(200).json("Deleted"))
         .catch(err => res.status(500).json(err))
 })
+
+// SEARCH BOARDGAME: NAME
+router.get('/search-boardgame-by-name/:input', (req, res) => {
+
+    const { input } = req.params
+
+    BoardGame
+        .find({ name: { $regex: input, $options: 'i' }, kind: { $eq: 'ORIGINAL'} })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
 module.exports = router
