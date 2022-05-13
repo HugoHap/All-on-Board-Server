@@ -7,7 +7,7 @@ const { isAuthenticated } = require('../middlewares/jwt.middleware')
 router.get('/', (req, res) => {
 
     Match
-        .find()
+        .find().sort({ startTime: 1 })
         .populate('boardGame')
         // .select('organizer description startTime boardGame location kind players')
         .then((response) => res.json(response))
