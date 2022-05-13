@@ -22,7 +22,6 @@ router.post('/create', isAuthenticated, (req, res) => {
 
     const { _id: owner } = req.payload
 
-    console.log("boardgame payload-----", req.payload);
     const players = { min, max }
 
     BoardGame
@@ -35,7 +34,7 @@ router.post('/create', isAuthenticated, (req, res) => {
 // BOARDGAME DETAILS
 router.get("/:id", (req, res) => {
 
-    //ARRAY VACIO [BG.O, , [BG.R ALL]]
+    // ARRAY VACIO [BG.O, , [BG.R ALL]]
 
     const { id } = req.params
 
@@ -92,7 +91,7 @@ router.put('/:id/edit', (req, res) => {
 })
 
 // LIKE BOARDGAME 
-router.post('/:id/like', (req, res, next) => {
+router.put('/:id/like', (req, res, next) => {
 
     const { id } = req.params
 
@@ -103,7 +102,7 @@ router.post('/:id/like', (req, res, next) => {
 })
 
 // DISLIKE BOARDGAME 
-router.post('/:id/dislike', (req, res) => {
+router.put('/:id/dislike', (req, res) => {
 
     const { id } = req.params
 
