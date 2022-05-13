@@ -25,17 +25,7 @@ router.post('/create', isAuthenticated, (req, res) => {
         .catch(err => res.status(500).json(err))
 })
 
-// MATCH DETAILS
-router.get("/:id", (req, res) => {
 
-    const { id } = req.params
-
-    Match
-        .findById(id)
-        .populate('boardGame organizer')
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
-})
 
 // EDIT MATCH
 router.put("/:id/edit", (req, res) => {
@@ -61,15 +51,17 @@ router.delete("/:id/delete", (req, res) => {
 })
 
 // JOIN MATCH 
-router.post('/:id/join', isAuthenticated, (req, res) => {
+router.put('/:id/join', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
 
+
     Match
         .findById(id)
-        .then(matches => {
-            if (matches.players.length <= boardGame.players.max) {
+        .populate('boardGame')
+        .then(match => {
+            if (match.players.length < match.boardGame.players.max) {
 
                 Match
                     .findByIdAndUpdate(id, { $addToSet: { players: _id } })
@@ -89,6 +81,31 @@ router.post('/:id/unjoin', isAuthenticated, (req, res) => {
 
     Match
         .findByIdAndUpdate(id, { $pull: { players: _id } })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+})
+
+// MY MATCHES
+router.get('/mymatches', isAuthenticated, (req, res) => {
+
+    const { _id } = req.payload
+
+    Match
+        .find({ players: _id })
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json(err))
+
+
+})
+
+// MATCH DETAILS
+router.get("/:id", (req, res) => {
+
+    const { id } = req.params
+
+    Match
+        .findById(id)
+        .populate('boardGame organizer')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
