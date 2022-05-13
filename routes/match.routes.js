@@ -7,7 +7,7 @@ const { isAuthenticated } = require('../middlewares/jwt.middleware')
 router.get('/', (req, res) => {
 
     Match
-        .find()
+        .find().sort({ startTime: 1 })
         .populate('boardGame')
         // .select('organizer description startTime boardGame location kind players')
         .then((response) => res.json(response))
@@ -24,8 +24,6 @@ router.post('/create', isAuthenticated, (req, res) => {
         .then((match) => res.status(201).json({ match }))
         .catch(err => res.status(500).json(err))
 })
-
-
 
 // EDIT MATCH
 router.put("/:id/edit", (req, res) => {
@@ -55,7 +53,6 @@ router.put('/:id/join', isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id } = req.payload
-
 
     Match
         .findById(id)
@@ -94,7 +91,6 @@ router.get('/mymatches', isAuthenticated, (req, res) => {
         .find({ players: _id })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
-
 
 })
 
