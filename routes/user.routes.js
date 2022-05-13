@@ -33,15 +33,15 @@ router.get('/:_id', isAuthenticated, (req, res) => {
 })
 
 // GET ALL BOARDGAMES
-router.get("/boardgames", isAuthenticated, (req, res) => {
+// router.get("/boardgames", isAuthenticated, (req, res) => {
 
-    const { _id } = req.payload
+//     const { _id } = req.payload
 
-    BoardGame
-        .find({ owner: _id })
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json(err))
-})
+//     BoardGame
+//         .find({ owner: _id })
+//         .then(response => res.json(response))
+//         .catch(err => res.status(500).json(err))
+// })
 
 // EDIT USER PROFILE 
 router.put('/:_id/edit', isAuthenticated, (req, res) => {

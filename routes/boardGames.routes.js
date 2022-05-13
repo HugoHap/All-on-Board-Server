@@ -32,6 +32,122 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 // BOARDGAME DETAILS
+
+//BOARDGAME RELATED
+
+router.get("/:id/rent", (req, res) => {
+    
+    const { id } = req.params
+    
+    
+    
+    BoardGame
+    .findById(id)
+    .then(boardgame => {
+        
+        return BoardGame.find({ 'kind': { $eq: "RENT" }, "name": { $eq: boardgame.name } })
+    })
+    .then(response => {
+        
+        res.json(response)
+    })
+    .catch(err => res.status(500).json(err))
+})
+
+// EDIT BOARDGAME
+router.put('/:id/edit', (req, res) => {
+    
+    const { id } = req.params
+    const { name, description, gameImg, min, max } = req.body
+    
+    BoardGame
+    .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
+    .then(() => res.status(200).json("Updated"))
+    .catch(err => res.status(500).json(err))
+})
+
+// LIKE BOARDGAME 
+router.put('/:id/like', (req, res, next) => {
+    
+    const { id } = req.params
+    
+    BoardGame
+        .findByIdAndUpdate(id, { $inc: { likes: 1 } })
+        .then(() => res.status(200).json("Incremenet like"))
+        .catch(err => res.status(500).json(err))
+    })
+    
+    // DISLIKE BOARDGAME 
+    router.put('/:id/dislike', (req, res) => {
+        
+        const { id } = req.params
+        
+        BoardGame
+        .findByIdAndUpdate(id, { $inc: { dislike: 1 } })
+        .then(() => res.status(200).json("Increment Dislike"))
+        .catch(err => res.status(500).json(err))
+    })
+    
+    //FAV BOARDGAME 
+    router.post('/:id/favourite', (req, res) => {
+        
+        const { id } = req.params
+        const { _id } = req.payload
+        
+        User
+        .findByIdAndUpdate(_id, { $addToSet: { favouriteGames: id } })
+        .then(() => res.status(200).json("Add to favourite"))
+        .catch(err => res.status(500).json(err))
+    })
+    
+    //FAV BOARDGAME
+router.post('/:id/delete-favourite', (req, res) => {
+    
+    const { id } = req.params
+    const { _id } = req.payload
+    
+    User
+    .findByIdAndUpdate(_id, { $pull: { favouriteGames: id } })
+    .then(() => res.status(200).json("Delete favourite"))
+    .catch(err => res.status(500).json(err))
+})
+
+// DELETE BOARDGAME 
+router.delete('/:id/delete', (req, res) => {
+    
+    const { id } = req.params
+    
+    BoardGame
+    .findByIdAndDelete(id)
+    .then(() => res.status(200).json("Deleted"))
+    .catch(err => res.status(500).json(err))
+})
+
+// SEARCH BOARDGAME: NAME
+router.get('/search-boardgame-by-name/:input', (req, res) => {
+    
+    const { input } = req.params
+    
+    BoardGame
+    .find({ name: { $regex: input, $options: 'i' }, kind: { $eq: 'ORIGINAL'} })
+    .then(response => res.json(response))
+    .catch(err => res.status(500).json(err))
+})
+
+router.get("/owngames", isAuthenticated, (req, res) => {
+    
+    const { _id } = req.payload
+    
+    
+    BoardGame
+    .find({ 'owner': { $eq: _id } })
+
+    .then(response => {
+        res.json(response)
+    })
+    .catch(err => res.status(500).json(err))
+})
+
 router.get("/:id", (req, res) => {
 
     // ARRAY VACIO [BG.O, , [BG.R ALL]]
@@ -54,107 +170,6 @@ router.get("/:id", (req, res) => {
                 .then(() => res.json(boardGameData))
 
         })
-        .catch(err => res.status(500).json(err))
-})
-
-//BOARDGAME RELATED
-
-router.get("/:id/rent", (req, res) => {
-
-    const { id } = req.params
-
-
-
-    BoardGame
-        .findById(id)
-        .then(boardgame => {
-
-            return BoardGame.find({ 'kind': { $eq: "RENT" }, "name": { $eq: boardgame.name } })
-        })
-        .then(response => {
-
-            res.json(response)
-        })
-        .catch(err => res.status(500).json(err))
-})
-
-// EDIT BOARDGAME
-router.put('/:id/edit', (req, res) => {
-
-    const { id } = req.params
-    const { name, description, gameImg, min, max } = req.body
-
-    BoardGame
-        .findByIdAndUpdate(id, { name, description, gameImg, min, max },)
-        .then(() => res.status(200).json("Updated"))
-        .catch(err => res.status(500).json(err))
-})
-
-// LIKE BOARDGAME 
-router.put('/:id/like', (req, res, next) => {
-
-    const { id } = req.params
-
-    BoardGame
-        .findByIdAndUpdate(id, { $inc: { likes: 1 } })
-        .then(() => res.status(200).json("Incremenet like"))
-        .catch(err => res.status(500).json(err))
-})
-
-// DISLIKE BOARDGAME 
-router.put('/:id/dislike', (req, res) => {
-
-    const { id } = req.params
-
-    BoardGame
-        .findByIdAndUpdate(id, { $inc: { dislike: 1 } })
-        .then(() => res.status(200).json("Increment Dislike"))
-        .catch(err => res.status(500).json(err))
-})
-
-//FAV BOARDGAME 
-router.post('/:id/favourite', (req, res) => {
-
-    const { id } = req.params
-    const { _id } = req.payload
-
-    User
-        .findByIdAndUpdate(_id, { $addToSet: { favouriteGames: id } })
-        .then(() => res.status(200).json("Add to favourite"))
-        .catch(err => res.status(500).json(err))
-})
-
-//FAV BOARDGAME
-router.post('/:id/delete-favourite', (req, res) => {
-
-    const { id } = req.params
-    const { _id } = req.payload
-
-    User
-        .findByIdAndUpdate(_id, { $pull: { favouriteGames: id } })
-        .then(() => res.status(200).json("Delete favourite"))
-        .catch(err => res.status(500).json(err))
-})
-
-// DELETE BOARDGAME 
-router.delete('/:id/delete', (req, res) => {
-
-    const { id } = req.params
-
-    BoardGame
-        .findByIdAndDelete(id)
-        .then(() => res.status(200).json("Deleted"))
-        .catch(err => res.status(500).json(err))
-})
-
-// SEARCH BOARDGAME: NAME
-router.get('/search-boardgame-by-name/:input', (req, res) => {
-
-    const { input } = req.params
-
-    BoardGame
-        .find({ name: { $regex: input, $options: 'i' }, kind: { $eq: 'ORIGINAL'} })
-        .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
 
