@@ -101,7 +101,7 @@ router.get("/:id", (req, res) => {
 
     Match
         .findById(id)
-        .populate('boardGame organizer')
+        .populate('boardGame organizer players')
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
