@@ -39,8 +39,6 @@ router.get("/:id/rent", (req, res) => {
     
     const { id } = req.params
     
-    
-    
     BoardGame
     .findById(id)
     .then(boardgame => {
