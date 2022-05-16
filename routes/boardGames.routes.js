@@ -32,9 +32,25 @@ router.post('/create', isAuthenticated, (req, res) => {
 })
 
 router.get('/originals', (req, res) => {
+
+    const originalGames = []
+
     BoardGame
         .find({ 'kind': { $eq: "ORIGINAL" } })
-        .then(response => res.json(response))
+        .sort({ name: 1 })
+        .then(response => {
+            originalGames.push(response)
+
+            responseCopy = [...response]
+
+            responseCopy.sort((a, b) => {
+                return b.likes - a.likes
+            })
+            originalGames.push(responseCopy)
+            console.log("copia????????????---------", originalGames);
+        })
+        .then(() => res.json(originalGames))
+
         .catch(err => res.status(500).json(err))
 
 })
