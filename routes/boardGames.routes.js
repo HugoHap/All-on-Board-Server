@@ -3,7 +3,6 @@ const router = require("express").Router()
 const BoardGame = require("./../models/BoardGame.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
-const { response } = require("express")
 
 // BOARDGAME LIST
 router.get('/', (req, res) => {
@@ -33,7 +32,7 @@ router.post('/create', isAuthenticated, (req, res) => {
 
 router.get('/originals', (req, res) => {
     BoardGame
-        .find({ 'kind': { $eq: "ORIGINAL" } })
+        .find({ 'kind': { $eq: "ORIGINAL" } }).sort({ name: 1 })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 
@@ -44,7 +43,7 @@ router.get('/originals', (req, res) => {
 router.get("/:id/rent", (req, res) => {
 
     const { id } = req.params
-    
+
     BoardGame
         .findById(id)
         .then(boardgame => {
