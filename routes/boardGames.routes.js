@@ -3,7 +3,6 @@ const router = require("express").Router()
 const BoardGame = require("./../models/BoardGame.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
-const { response } = require("express")
 
 // BOARDGAME LIST
 router.get('/', (req, res) => {
@@ -47,7 +46,6 @@ router.get('/originals', (req, res) => {
                 return b.likes - a.likes
             })
             originalGames.push(responseCopy)
-            console.log("copia????????????---------", originalGames);
         })
         .then(() => res.json(originalGames))
 
@@ -60,7 +58,7 @@ router.get('/originals', (req, res) => {
 router.get("/:id/rent", (req, res) => {
 
     const { id } = req.params
-    
+
     BoardGame
         .findById(id)
         .then(boardgame => {
