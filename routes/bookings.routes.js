@@ -8,7 +8,6 @@ router.post("/:id/create", isAuthenticated, (req, res) => {
 
     const { id } = req.params
     const { _id: renter } = req.payload
-console.log(req.payload);
     const { startDate, endDate } = req.body
 
     Booking
@@ -23,7 +22,7 @@ router.get("/:id", (req, res) => {
     const { id } = req.params
 
     Booking
-        .findById(id)
+        .find({ 'boardGame': { $eq: id } })
         .then(response => res.json(response))
         .catch(err => res.status(500).json(err))
 })
