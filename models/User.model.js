@@ -28,6 +28,9 @@ const userSchema = new Schema(
       type: String,
       default: "https://i.stack.imgur.com/l60Hf.png"
     },
+    phone: {
+      type: Number
+    }
   },
   {
     timestamps: true,
