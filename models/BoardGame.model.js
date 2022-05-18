@@ -8,7 +8,6 @@ const boardGameSchema = new Schema(
         },
         description: {
             type: String,
-            required: true
         },
         playingTime: {
             type: String,

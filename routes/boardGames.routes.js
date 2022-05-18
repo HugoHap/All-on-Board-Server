@@ -1,6 +1,7 @@
 const router = require("express").Router()
 
 const BoardGame = require("./../models/BoardGame.model")
+const Booking = require("../models/Booking.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
 
@@ -159,7 +160,22 @@ router.get("/owngames", isAuthenticated, (req, res) => {
 
     BoardGame
         .find({ 'owner': { $eq: _id } })
+        .then(response => {
+            res.json(response)
+        })
+        .catch(err => res.status(500).json(err))
+})
 
+router.get("/rentedGames", isAuthenticated, (req, res) => {
+
+    const { _id } = req.payload
+
+    Booking
+        .find({ 'renter': { $eq: _id } })
+        .populate({
+            path: 'boardGame',
+            populate: { path: 'owner' }
+        })
         .then(response => {
             res.json(response)
         })
