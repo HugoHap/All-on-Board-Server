@@ -32,7 +32,6 @@ router.post('/signup', (req, res) => {
             return User.create({ email, password: hashedPassword, username, avatar })
         })
         .then((createdUser) => {
-            console.log('----', createdUser)
             const { email, username, _id } = createdUser
             const user = { email, username, _id }
 
