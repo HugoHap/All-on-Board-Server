@@ -109,6 +109,16 @@ const boardGames = [
         gameImg: "https://cf.geekdo-images.com/oMJ0w0TsaIqTwhZ3ZBCKNw__imagepage/img/yRnPJkqw5qI4roA9qZ_bXHk3nzE=/fit-in/900x600/filters:no_upscale():strip_icc()/pic387612.jpg",
         players: { min: 2, max: 24 },
         kind: "ORIGINAL",
+    },
+    {
+        name: "Batman: Gotham City Chronicles",
+        description:
+            "In Batman: Gotham City Chronicles, one villain faces off against a team of heroes in one of multiple scenarios. Each hero has their own character, and they control this character by spending energy to perform actions (such as Melee and Ranged attacks, defusing bombs...)",
+        playingTime: "60-90 min",
+        age: "+14",
+        gameImg: "https://cf.geekdo-images.com/YGNk9UF-QqLWT58aWiRV7w__imagepage/img/snfrD1FHiVYVH6I1ewkusciLUUY=/fit-in/900x600/filters:no_upscale():strip_icc()/pic3893551.png",
+        players: { min: 2, max: 4 },
+        kind: "ORIGINAL",
     }
 ];
 
