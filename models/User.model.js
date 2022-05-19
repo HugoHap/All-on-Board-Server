@@ -7,6 +7,9 @@ const userSchema = new Schema(
       unique: true,
       required: [true, "Indica el correo electrónico"],
     },
+    description: {
+      type: String,
+    },
     username: {
       type: String,
       required: [true, "Indica el nombre de usuario"],

@@ -16,8 +16,13 @@ router.get('/', (req, res) => {
 
 // CREATE MATCH
 router.post('/create', isAuthenticated, (req, res) => {
-    const { description, startTime, boardGame, location, kind } = req.body
+    const { description, startTime, boardGame, lat, lng, kind } = req.body
     const { _id } = req.payload
+
+    const location = {
+        type: "Point",
+        coordinates: [lat, lng]
+    }
 
     Match
         .create({ organizer: _id, description, startTime, boardGame, location, kind })

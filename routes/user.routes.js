@@ -11,7 +11,7 @@ router.get('/', isAuthenticated, (req, res) => {
     User
         .find()
         .select('-role')
-        .select('email username favouriteGames avatar')
+        .select('email username favouriteGames avatar description')
         .then((response) => res.json(response))
         .catch(err => res.status(500).json(err))
 })
@@ -50,7 +50,7 @@ router.put('/:_id/edit', isAuthenticated, (req, res) => {
     const { email, username, avatar } = req.body
 
     User
-        .findByIdAndUpdate(_id, { email, username, avatar })
+        .findByIdAndUpdate(_id, { email, username, avatar, description })
         .then(() => res.status(200).json("Updated"))
         .catch(err => res.status(500).json(err))
 })
