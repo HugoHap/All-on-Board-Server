@@ -56,12 +56,12 @@ router.put('/:_id/edit', isAuthenticated, (req, res) => {
 })
 
 // DELETE USER PROFILE 
-router.delete('/:_id/delete', (req, res) => {
+router.delete('/:id/delete', (req, res) => {
 
-    const { _id } = req.params
+    const { id } = req.params
 
     User
-        .findByIdAndDelete(_id)
+        .findByIdAndDelete(id)
         .then(() => res.status(200).json("Deleted"))
         .catch(err => res.status(500).json(err))
 })
