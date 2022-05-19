@@ -32,7 +32,7 @@ const userSchema = new Schema(
       default: "https://i.stack.imgur.com/l60Hf.png"
     },
     phone: {
-      type: Number
+      type: String,
     }
   },
   {
