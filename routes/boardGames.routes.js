@@ -1,6 +1,7 @@
 const router = require("express").Router()
 
 const BoardGame = require("./../models/BoardGame.model")
+const Booking = require("../models/Booking.model")
 
 const { isAuthenticated } = require("./../middlewares/jwt.middleware")
 
@@ -17,14 +18,14 @@ router.get('/', (req, res) => {
 
 // CREATE BOARDGAME
 router.post('/create', isAuthenticated, (req, res) => {
-    const { name, description, kind, gameImg, min, max, age, playingTime } = req.body
+    const { name, description, kind, gameImg, min, max, age, playingTime} = req.body
 
     const { _id: owner } = req.payload
 
     const players = { min, max }
 
     BoardGame
-        .create({ name, description, kind, gameImg, players, owner, age, playingTime })
+        .create({ name, description, kind, gameImg, players, owner, age, playingTime})
         .then((boardgame) => res.status(201).json({ boardgame }))
         .catch(err => res.status(500).json(err))
 
@@ -159,7 +160,22 @@ router.get("/owngames", isAuthenticated, (req, res) => {
 
     BoardGame
         .find({ 'owner': { $eq: _id } })
+        .then(response => {
+            res.json(response)
+        })
+        .catch(err => res.status(500).json(err))
+})
 
+router.get("/rentedGames", isAuthenticated, (req, res) => {
+
+    const { _id } = req.payload
+
+    Booking
+        .find({ 'renter': { $eq: _id } })
+        .populate({
+            path: 'boardGame',
+            populate: { path: 'owner' }
+        })
         .then(response => {
             res.json(response)
         })
