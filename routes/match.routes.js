@@ -64,15 +64,15 @@ router.put('/:id/join', isAuthenticated, (req, res) => {
         .findById(id)
         .populate('boardGame')
         .then(match => {
-            if (match.players.length < match.boardGame.players.max) {
+            // if (match.players.length < match.boardGame.players.max) {
 
                 Match
                     .findByIdAndUpdate(id, { $addToSet: { players: _id } })
                     .then(response => res.json(response))
                     .catch(err => res.status(500).json(err))
-            } else {
-                res.status(500).json(err)
-            }
+            // } else {
+            //     res.status(500).json(err)
+            // }
         })
 })
 
